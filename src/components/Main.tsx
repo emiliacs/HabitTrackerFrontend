@@ -1,11 +1,11 @@
 import React from "react";
 import { Text, View } from "react-native";
-import RegisterForm from "./RegisterForm";
+import LoginForm from "./LoginForm";
 
 const Main = (): JSX.Element => (
     <View>
         <Text>habit app</Text>
-        <RegisterForm />
+        <LoginForm />
     </View>
 );
 
