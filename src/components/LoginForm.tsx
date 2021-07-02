@@ -56,7 +56,7 @@ const RegisterForm = (): JSX.Element => {
     const [loginMessage, setloginMessage] = useState("");
 
     const submitRegister = async (values: ILoginFormValues) => {
-        const loginResponse = await loginService.handleLogin(values);
+        const loginResponse = await loginService.handleAuthentication(values);
         setloginMessage(loginResponse);
         setTimeout(() => {
             setloginMessage("");
