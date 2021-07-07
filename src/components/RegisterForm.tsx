@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Pressable, Text } from "react-native";
-
 import { Formik } from "formik";
 import * as Yup from "yup";
 import loginService from "../services/login";
-
-interface IRegisterFormValues {
-    name: string;
-    email: string;
-    password: string;
-}
+import { IRegisterFormValues } from "../types";
 
 const styles = StyleSheet.create({
     Container: {
