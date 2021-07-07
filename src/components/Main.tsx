@@ -1,12 +1,8 @@
 import React from "react";
-import { Text, View } from "react-native";
-import LoginForm from "./LoginForm";
+import Routes from "./Routes";
 
 const Main = (): JSX.Element => (
-    <View>
-        <Text>habit app</Text>
-        <LoginForm />
-    </View>
+    <Routes />
 );
 
 export default Main;

@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Pressable, Text } from "react-native";
-
 import { Formik } from "formik";
 import * as Yup from "yup";
 import loginService from "../services/login";
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { TAuthParamList, ILoginFormValues } from "../types";
 
-interface ILoginFormValues {
-    email: string;
-    password: string;
-}
+export interface IAuthNavProps<T extends keyof TAuthParamList> {
+    navigation: StackNavigationProp<TAuthParamList, T>;
+    route: RouteProp<TAuthParamList, T>;
+};
 
 const styles = StyleSheet.create({
     Container: {
@@ -22,7 +24,6 @@ const styles = StyleSheet.create({
         margin: 10
     },
     ErrorText: {
-
         paddingHorizontal: 32,
         color: "red",
     },
@@ -51,7 +52,7 @@ const SignupSchema = Yup.object().shape({
     email: Yup.string().required("Required"),
 });
 
-const RegisterForm = (): JSX.Element => {
+const RegisterForm = ({ navigation }: IAuthNavProps<"Login">): JSX.Element => {
     const initialValues: ILoginFormValues = { email: "", password: "" };
     const [loginMessage, setloginMessage] = useState("");
 
@@ -103,7 +104,9 @@ const RegisterForm = (): JSX.Element => {
                     </View>
                 )}
             </Formik>
-            <Pressable style={styles.TextInput} >
+            <Pressable style={styles.TextInput} onPress={() => {
+                navigation.navigate("Register");
+            }} >
                 <Text >No account? Greate one here.</Text>
             </Pressable>
         </View>
