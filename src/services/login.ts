@@ -1,5 +1,6 @@
 import axios from "axios";
 import authStorage from "../utils/authStorage";
+import { IUser } from "../types";
 const baseUrl = "http://192.168.1.53:36656/api/";
 
 interface ICredentials {
@@ -7,6 +8,22 @@ interface ICredentials {
     password: string;
     email: string;
 }
+
+const tryValidateToken = async (token: string) => {
+    const response = await axios.post(
+        `${baseUrl}me`,
+        { token }
+    );
+    if (response.status !== 200) await authStorage.removeToken();
+    return response;
+};
+
+const loginWithToken = async (token: string): Promise<null | IUser> => {
+    const tokenValidationResult = await tryValidateToken(token);
+    return tokenValidationResult.status === 200
+        ? tokenValidationResult.data as IUser
+        : null;
+};
 
 const tryAuth = async (credentials: ICredentials) => {
     const route = credentials.name
@@ -27,4 +44,4 @@ const handleAuthentication = async (credentials: ICredentials): Promise<string> 
         : "Registration Succees";
 };
 
-export default { handleAuthentication };
+export default { handleAuthentication, loginWithToken };

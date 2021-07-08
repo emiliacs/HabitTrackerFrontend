@@ -1,23 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import authStorage from "../utils/authStorage";
 import AppStack from "./AppStack";
 import AuthenticationStack from "./AuthenticationStack";
+import { UserContext } from "./UserContext";
+import { Text } from "react-native";
+import authStorage from "../utils/authStorage";
+import loginService from "../services/login";
 
 const Routes = (): JSX.Element => {
-    const [token, setToken] = useState<null | string>(null);
+    const { user, setUser } = useContext(UserContext);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const checkToken = async () => {
-            setToken(await authStorage.getToken());
+        const tryLogin = async () => {
+            const token = await authStorage.getToken();
+            if (token) setUser(await loginService.loginWithToken(token));
+            setLoading(false);
         };
-        void checkToken();
+        void tryLogin();
     }, []);
+
     return (
         <NavigationContainer>
-            {token
-                ? <AppStack />
-                : <AuthenticationStack />
+            {loading
+                ? <Text>loading</Text>
+                : user
+                    ? <AppStack />
+                    : <AuthenticationStack />
             }
         </NavigationContainer >
     );
