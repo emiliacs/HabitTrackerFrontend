@@ -8,6 +8,11 @@ export type TAppParamList = {
     Home: undefined;
 };
 
+export interface IUser {
+    username: string;
+    userId?: string;
+}
+
 export interface ILoginFormValues {
     email: string;
     password: string;
