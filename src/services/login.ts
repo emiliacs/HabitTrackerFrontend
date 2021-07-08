@@ -1,7 +1,9 @@
 import axios from "axios";
 import authStorage from "../utils/authStorage";
 import { IUser } from "../types";
-const baseUrl = "http://192.168.1.53:36656/api/";
+import { API_URL } from "@env";
+
+const baseUrl = API_URL;
 
 interface ICredentials {
     name?: string;
