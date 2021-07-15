@@ -14,7 +14,7 @@ interface ICredentials {
 
 const tryValidateToken = async (token: string) => {
     const response = await axios
-        .post(`${baseUrl}${Routes.usersMe}`, { token })
+        .get(`${baseUrl}${Routes.usersMe}`, { headers: { Authorization: `Bearer ${token}` } })
         .catch((error: AxiosError | Error) => axios.isAxiosError(error) && error.response);
     if (!response || response.status !== StatusCodes.Code200) await authStorage.removeToken();
     return response;
