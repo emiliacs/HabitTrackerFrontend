@@ -14,10 +14,9 @@ const styles = StyleSheet.create({
     TextInput: {
         backgroundColor: "#f5f6f7",
         padding: 10,
-        margin: 10
+        margin: 10,
     },
     ErrorText: {
-
         paddingHorizontal: 32,
         color: "red",
     },
@@ -46,10 +45,10 @@ const SignupSchema = Yup.object().shape({
         .max(50, "Maximum length is 50")
         .required("Required"),
     password: Yup.string()
-        .required("Required"
-        ).matches(
+        .required("Required")
+        .matches(
             /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-            "Password must contain at least 8 characters, one uppercase, one number and one special case character"
+            "Password must contain at least 8 characters, one uppercase, one number and one special case character",
         ),
     email: Yup.string().email("Invalid email").required("Required"),
 });
@@ -67,7 +66,7 @@ const RegisterForm = (): JSX.Element => {
     };
 
     return (
-        <View >
+        <View>
             <Formik
                 initialValues={initialValues}
                 validationSchema={SignupSchema}
@@ -81,22 +80,22 @@ const RegisterForm = (): JSX.Element => {
                             onChangeText={handleChange("name")}
                             onBlur={handleBlur("name")}
                             value={values.name}
+                            onSubmitEditing={() => handleSubmit()}
                         />
-                        {errors.name && touched.name
-                            ? <Text style={styles.ErrorText}>{errors.name}</Text>
-                            : null
-                        }
+                        {errors.name && touched.name ? (
+                            <Text style={styles.ErrorText}>{errors.name}</Text>
+                        ) : null}
                         <TextInput
                             style={styles.TextInput}
                             placeholder="Email"
                             onChangeText={handleChange("email")}
                             onBlur={handleBlur("email")}
                             value={values.email}
+                            onSubmitEditing={() => handleSubmit()}
                         />
-                        {errors.email && touched.email
-                            ? <Text style={styles.ErrorText}>{errors.email}</Text>
-                            : null
-                        }
+                        {errors.email && touched.email ? (
+                            <Text style={styles.ErrorText}>{errors.email}</Text>
+                        ) : null}
 
                         <TextInput
                             style={styles.TextInput}
@@ -105,13 +104,13 @@ const RegisterForm = (): JSX.Element => {
                             onChangeText={handleChange("password")}
                             onBlur={handleBlur("password")}
                             value={values.password}
+                            onSubmitEditing={() => handleSubmit()}
                         />
-                        {errors.password && touched.password
-                            ? <Text style={styles.ErrorText}>{errors.password}</Text>
-                            : null
-                        }
+                        {errors.password && touched.password ? (
+                            <Text style={styles.ErrorText}>{errors.password}</Text>
+                        ) : null}
                         <Pressable style={styles.Button} onPress={() => handleSubmit()}>
-                            <Text style={styles.ButtonText} > Submit</Text>
+                            <Text style={styles.ButtonText}> Submit</Text>
                         </Pressable>
                         <Text>{registerMessage}</Text>
                     </View>
