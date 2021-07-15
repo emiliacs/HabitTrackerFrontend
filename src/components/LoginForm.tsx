@@ -10,7 +10,7 @@ import { TAuthParamList, ILoginFormValues } from "../types";
 export interface IAuthNavProps<T extends keyof TAuthParamList> {
     navigation: StackNavigationProp<TAuthParamList, T>;
     route: RouteProp<TAuthParamList, T>;
-};
+}
 
 const styles = StyleSheet.create({
     Container: {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     TextInput: {
         backgroundColor: "#f5f6f7",
         padding: 10,
-        margin: 10
+        margin: 10,
     },
     ErrorText: {
         paddingHorizontal: 32,
@@ -47,8 +47,7 @@ const styles = StyleSheet.create({
 });
 
 const SignupSchema = Yup.object().shape({
-    password: Yup.string()
-        .required("Required"),
+    password: Yup.string().required("Required"),
     email: Yup.string().required("Required"),
 });
 
@@ -65,7 +64,7 @@ const RegisterForm = ({ navigation }: IAuthNavProps<"Login">): JSX.Element => {
     };
 
     return (
-        <View >
+        <View>
             <Formik
                 initialValues={initialValues}
                 validationSchema={SignupSchema}
@@ -79,11 +78,11 @@ const RegisterForm = ({ navigation }: IAuthNavProps<"Login">): JSX.Element => {
                             onChangeText={handleChange("email")}
                             onBlur={handleBlur("email")}
                             value={values.email}
+                            onSubmitEditing={() => handleSubmit()}
                         />
-                        {errors.email && touched.email
-                            ? <Text style={styles.ErrorText}>{errors.email}</Text>
-                            : null
-                        }
+                        {errors.email && touched.email ? (
+                            <Text style={styles.ErrorText}>{errors.email}</Text>
+                        ) : null}
 
                         <TextInput
                             style={styles.TextInput}
@@ -92,22 +91,25 @@ const RegisterForm = ({ navigation }: IAuthNavProps<"Login">): JSX.Element => {
                             onChangeText={handleChange("password")}
                             onBlur={handleBlur("password")}
                             value={values.password}
+                            onSubmitEditing={() => handleSubmit()}
                         />
-                        {errors.password && touched.password
-                            ? <Text style={styles.ErrorText}>{errors.password}</Text>
-                            : null
-                        }
+                        {errors.password && touched.password ? (
+                            <Text style={styles.ErrorText}>{errors.password}</Text>
+                        ) : null}
                         <Pressable style={styles.Button} onPress={() => handleSubmit()}>
-                            <Text style={styles.ButtonText} > Submit</Text>
+                            <Text style={styles.ButtonText}> Submit</Text>
                         </Pressable>
                         <Text>{loginMessage}</Text>
                     </View>
                 )}
             </Formik>
-            <Pressable style={styles.TextInput} onPress={() => {
-                navigation.navigate("Register");
-            }} >
-                <Text >No account? Greate one here.</Text>
+            <Pressable
+                style={styles.TextInput}
+                onPress={() => {
+                    navigation.navigate("Register");
+                }}
+            >
+                <Text>No account? Create one here.</Text>
             </Pressable>
         </View>
     );
