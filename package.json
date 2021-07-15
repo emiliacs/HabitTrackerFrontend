@@ -32,7 +32,9 @@
     "react-native-web": "~0.13.12",
     "react-navigation-tabs": "^2.11.1",
     "react-router-native": "^5.2.0",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "expo-linking": "~2.2.3",
+    "expo-splash-screen": "~0.10.2"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",

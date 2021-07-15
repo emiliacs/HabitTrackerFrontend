@@ -1,12 +1,23 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, LinkingOptions } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
+import * as Linking from "expo-linking";
 import { UserContext } from "./UserContext";
 import AppStack from "./AppStack";
 import AuthenticationStack from "./AuthenticationStack";
 import authStorage from "../utils/authStorage";
 import loginService from "../services/login";
+
+const prefix = Linking.makeUrl("/");
+const linking: LinkingOptions = {
+    prefixes: [prefix],
+    config: {
+        screens: {
+            mailverification: "mailverification",
+        },
+    },
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -34,7 +45,7 @@ const Routes: React.FC = () => {
     }, [loading]);
 
     return (
-        <NavigationContainer onReady={onLayoutRootView}>
+        <NavigationContainer linking={linking} onReady={onLayoutRootView}>
             {loading ? (
                 <View style={styles.container}>
                     <ActivityIndicator size="large" color="#808080" />
