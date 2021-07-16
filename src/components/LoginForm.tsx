@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, TextInput, StyleSheet, Pressable, Text } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -6,6 +6,9 @@ import loginService from "../services/login";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { TAuthParamList, ILoginFormValues } from "../types";
+import authStorage from "../utils/authStorage";
+import { UserContext } from "./UserContext";
+import { LoginWithTokenRedirectTime } from "../constants";
 
 export interface IAuthNavProps<T extends keyof TAuthParamList> {
     navigation: StackNavigationProp<TAuthParamList, T>;
@@ -51,16 +54,23 @@ const SignupSchema = Yup.object().shape({
     email: Yup.string().required("Required"),
 });
 
-const RegisterForm = ({ navigation }: IAuthNavProps<"Login">): JSX.Element => {
+const LoginForm = ({ navigation }: IAuthNavProps<"Login">): JSX.Element => {
     const initialValues: ILoginFormValues = { email: "", password: "" };
     const [loginMessage, setloginMessage] = useState("");
+    const { setUser } = useContext(UserContext);
 
-    const submitRegister = async (values: ILoginFormValues) => {
+    const tryLoginWithToken = async () => {
+        const token = await authStorage.getToken();
+        if (token) setUser(await loginService.loginWithToken(token));
+    };
+
+    const submitLogin = async (values: ILoginFormValues) => {
         const loginResponse = await loginService.handleAuthentication(values);
         setloginMessage(loginResponse);
         setTimeout(() => {
             setloginMessage("");
-        }, 3000);
+            void tryLoginWithToken();
+        }, LoginWithTokenRedirectTime);
     };
 
     return (
@@ -68,7 +78,7 @@ const RegisterForm = ({ navigation }: IAuthNavProps<"Login">): JSX.Element => {
             <Formik
                 initialValues={initialValues}
                 validationSchema={SignupSchema}
-                onSubmit={submitRegister}
+                onSubmit={submitLogin}
             >
                 {({ handleChange, handleBlur, handleSubmit, errors, touched, values }) => (
                     <View>
@@ -115,4 +125,4 @@ const RegisterForm = ({ navigation }: IAuthNavProps<"Login">): JSX.Element => {
     );
 };
 
-export default RegisterForm;
+export default LoginForm;

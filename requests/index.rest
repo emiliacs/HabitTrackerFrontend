@@ -1,0 +1,37 @@
+# @name register
+POST {{API_URL}}/users
+Content-Type: application/json
+
+{
+    "name":"{{name}}",
+    "email":"{{email}}",
+    "password":"{{password}}"
+}
+
+###
+
+# @name login
+POST {{API_URL}}/login 
+Content-Type: application/json
+
+{
+    "email":"{{email}}",
+    "password":"{{password}}"
+}
+
+###
+
+@authToken ={{login.response.body.token}}
+
+# @name me
+GET   {{API_URL}}/users/me
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name users
+GET   {{API_URL}}/users
+Authorization: Bearer {{authToken}}
+
+
+###

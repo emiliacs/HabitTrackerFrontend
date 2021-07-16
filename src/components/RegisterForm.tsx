@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, TextInput, StyleSheet, Pressable, Text } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import loginService from "../services/login";
 import { IRegisterFormValues } from "../types";
+import authStorage from "../utils/authStorage";
+import { UserContext } from "./UserContext";
+import { LoginWithTokenRedirectTime } from "../constants";
 
 const styles = StyleSheet.create({
     Container: {
@@ -56,13 +59,20 @@ const SignupSchema = Yup.object().shape({
 const RegisterForm = (): JSX.Element => {
     const initialValues: IRegisterFormValues = { name: "", email: "", password: "" };
     const [registerMessage, setregisterMessage] = useState("");
+    const { setUser } = useContext(UserContext);
+
+    const tryLoginWithToken = async () => {
+        const token = await authStorage.getToken();
+        if (token) setUser(await loginService.loginWithToken(token));
+    };
 
     const submitRegister = async (values: IRegisterFormValues) => {
         const registerRespone = await loginService.handleAuthentication(values);
         setregisterMessage(registerRespone);
         setTimeout(() => {
             setregisterMessage("");
-        }, 3000);
+            void tryLoginWithToken();
+        }, LoginWithTokenRedirectTime);
     };
 
     return (

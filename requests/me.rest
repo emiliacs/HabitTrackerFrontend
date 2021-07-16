@@ -1,0 +1,2 @@
+GET   http://localhost:36656/api/users/me
+Authorization: Bearer xxx
