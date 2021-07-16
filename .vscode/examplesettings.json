@@ -1,0 +1,19 @@
+{
+    "rest-client.environmentVariables": {
+        "$shared": {
+            "version": "v1"
+        },
+        "development": {
+            "API_URL": "http://localhost:36656/api",
+            "name": "testuser",
+            "email": "test@user.fi",
+            "password": "Testuser1!"
+        },
+        "production": {
+            "API_URL": "http://example.com/api",
+            "name": "testuser",
+            "email": "test@user.fi",
+            "password": "Testuser1!"
+        }
+    }
+}

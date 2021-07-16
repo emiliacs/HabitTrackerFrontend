@@ -11,7 +11,7 @@ export type TAppParamList = {
 };
 
 export interface IUser {
-    username: string;
+    name: string;
     userId?: string;
 }
 

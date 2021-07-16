@@ -12,3 +12,5 @@ export enum Routes {
     register = "register",
     usersMe = "users/me",
 }
+
+export const LoginWithTokenRedirectTime = 2000;
