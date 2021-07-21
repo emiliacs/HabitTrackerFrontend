@@ -9,8 +9,14 @@ export enum LoginMessages {
 
 export enum Routes {
     login = "login",
-    register = "register",
+    register = "users",
     usersMe = "users/me",
+    verify = "users/verify",
+}
+
+export enum VerificationMessages {
+    success = "Verification success",
+    fail = "Unable to verify",
 }
 
 export const LoginWithTokenRedirectTime = 2000;

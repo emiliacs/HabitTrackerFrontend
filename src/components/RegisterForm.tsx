@@ -40,6 +40,16 @@ const styles = StyleSheet.create({
         letterSpacing: 0.25,
         color: "white",
     },
+    ButtonDis: {
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 10,
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: "gray",
+    },
 });
 
 const SignupSchema = Yup.object().shape({
@@ -82,7 +92,15 @@ const RegisterForm = (): JSX.Element => {
                 validationSchema={SignupSchema}
                 onSubmit={submitRegister}
             >
-                {({ handleChange, handleBlur, handleSubmit, errors, touched, values }) => (
+                {({
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    errors,
+                    touched,
+                    values,
+                    isSubmitting,
+                }) => (
                     <View>
                         <TextInput
                             style={styles.TextInput}
@@ -119,7 +137,11 @@ const RegisterForm = (): JSX.Element => {
                         {errors.password && touched.password ? (
                             <Text style={styles.ErrorText}>{errors.password}</Text>
                         ) : null}
-                        <Pressable style={styles.Button} onPress={() => handleSubmit()}>
+                        <Pressable
+                            style={isSubmitting ? styles.ButtonDis : styles.Button}
+                            disabled={isSubmitting}
+                            onPress={() => handleSubmit()}
+                        >
                             <Text style={styles.ButtonText}> Submit</Text>
                         </Pressable>
                         <Text>{registerMessage}</Text>

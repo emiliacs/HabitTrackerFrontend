@@ -1,6 +1,8 @@
 import { API_URL } from "@env";
 import axios from "axios";
-const baseUrl = API_URL + "users/verify";
+import { VerificationMessages, Routes } from "../constants";
+
+const baseUrl = API_URL;
 
 interface IVerificationData {
     verificationCode: string;
@@ -8,10 +10,10 @@ interface IVerificationData {
 
 const handleVerification = ({ verificationCode }: IVerificationData): Promise<string> =>
     axios
-        .patch(`${baseUrl}`, null, {
+        .patch(`${baseUrl}${Routes.verify}`, null, {
             params: { verificationCode },
         })
-        .then(() => "Verification success")
-        .catch(() => "Unable to verify email");
+        .then(() => VerificationMessages.success)
+        .catch(() => VerificationMessages.fail);
 
 export default { handleVerification };
