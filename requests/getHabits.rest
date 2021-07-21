@@ -1,0 +1,2 @@
+Get http://localhost:36656/api/habits 
+Authorization: Bearer xxx

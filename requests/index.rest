@@ -35,3 +35,24 @@ Authorization: Bearer {{authToken}}
 
 
 ###
+
+# @name getHabits
+Get {{API_URL}}/habits 
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name postHabit
+POST {{API_URL}}/habits 
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+    "OwnerId": 1,
+    "Name": "testuser",
+    "Description": "test habit",
+    "Reward": "test reward",
+    "Favorite": true,
+    "PublicHabit": true
+}
+###

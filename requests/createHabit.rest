@@ -1,0 +1,12 @@
+POST http://localhost:36656/api/habits 
+Authorization: Bearer xxx
+Content-Type: application/json
+
+{
+    "OwnerId": 1,
+    "Name": "testuser",
+    "Description": "test habit",
+    "Reward": "test reward",
+    "Favorite": true,
+    "PublicHabit": true
+}

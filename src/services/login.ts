@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import authStorage from "../utils/authStorage";
 import { IUser } from "../types";
 import { API_URL } from "@env";
-import { LoginMessages, StatusCodes, Routes } from "../constants";
+import { LoginMessages, StatusCodes, ApiRoutes } from "../constants";
 
 const baseUrl = API_URL;
 
@@ -14,7 +14,7 @@ interface ICredentials {
 
 const tryValidateToken = async (token: string) => {
     const response = await axios
-        .get(`${baseUrl}${Routes.usersMe}`, { headers: { Authorization: `Bearer ${token}` } })
+        .get(`${baseUrl}${ApiRoutes.usersMe}`, { headers: { Authorization: `Bearer ${token}` } })
         .catch((error: AxiosError | Error) => axios.isAxiosError(error) && error.response);
     if (!response || response.status !== StatusCodes.Code200) await authStorage.removeToken();
     return response;
@@ -28,7 +28,7 @@ const loginWithToken = async (token: string): Promise<null | IUser> => {
 };
 
 const tryAuth = async (credentials: ICredentials) => {
-    const route = credentials.name ? Routes.register : Routes.login;
+    const route = credentials.name ? ApiRoutes.register : ApiRoutes.login;
     const response = await axios
         .post(`${baseUrl}${route}`, credentials)
         .catch((error: AxiosError | Error) => axios.isAxiosError(error) && error.response);
