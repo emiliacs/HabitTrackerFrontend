@@ -1,6 +1,6 @@
 import { API_URL } from "@env";
 import axios from "axios";
-import { VerificationMessages, Routes } from "../constants";
+import { VerificationMessages, ApiRoutes } from "../constants";
 
 const baseUrl = API_URL;
 
@@ -10,7 +10,7 @@ interface IVerificationData {
 
 const handleVerification = ({ verificationCode }: IVerificationData): Promise<string> =>
     axios
-        .patch(`${baseUrl}${Routes.verify}`, null, {
+        .patch(`${baseUrl}${ApiRoutes.verify}`, null, {
             params: { verificationCode },
         })
         .then(() => VerificationMessages.success)
