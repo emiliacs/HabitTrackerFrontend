@@ -29,6 +29,13 @@ const mockNewHabitResponse = {
 };
 const testToken = "testToken123";
 
+beforeEach(() => {
+    jest.clearAllMocks();
+});
+afterEach(() => {
+    jest.clearAllMocks();
+});
+
 describe("Create habit service", () => {
     it("Correct response with status 201", async () => {
         mockedAxios.post.mockResolvedValue({
@@ -59,6 +66,7 @@ describe("Create habit service", () => {
             status: 201,
         });
         void (await habit.handleNewHabit(testNewHabit));
+        expect(mockedAxios.post).toHaveBeenCalledTimes(1);
         expect(mockedAxiosPost).toHaveBeenCalledWith(
             `${baseUrl}${ApiRoutes.newHabit}`,
             testNewHabit,
