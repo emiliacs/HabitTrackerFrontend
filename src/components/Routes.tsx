@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { NavigationContainer, LinkingOptions } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
@@ -35,17 +35,14 @@ const Routes: React.FC = () => {
             await SplashScreen.preventAutoHideAsync();
             const token = await authStorage.getToken();
             if (token) setUser(await loginService.loginWithToken(token));
+            await SplashScreen.hideAsync();
             setLoading(false);
         };
         void tryLogin();
     }, []);
 
-    const onLayoutRootView = useCallback(async () => {
-        if (!loading) await SplashScreen.hideAsync();
-    }, [loading]);
-
     return (
-        <NavigationContainer linking={linking} onReady={onLayoutRootView}>
+        <NavigationContainer linking={linking}>
             {loading ? (
                 <View style={styles.container}>
                     <ActivityIndicator size="large" color="#808080" />

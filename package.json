@@ -6,8 +6,8 @@
         "ios": "expo start --ios",
         "web": "expo start --web",
         "eject": "expo eject",
-        "lint": "eslint ./src/**/*.{ts,tsx} App.tsx",
-        "proxy:dev": "npx iisexpress-proxy 36656 to 36656",
+        "lint": "eslint ./src/**/*.{ts,tsx} App.tsx ./tests/**/*.{ts,tsx}",
+        "proxy:dev": "npx iisexpress-proxy http://localhost:36656 to 4000",
         "dev": "run-p --race proxy:dev start",
         "test": "jest --coverage"
     },
