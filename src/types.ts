@@ -19,13 +19,13 @@ export interface IUser {
 }
 
 export interface IHabit {
-    HabitId?: number;
-    OwnerId: number;
-    Name: string;
-    Description?: string;
-    Reward?: string;
-    Favorite?: boolean;
-    PublicHabit?: boolean;
+    habitId?: number;
+    ownerId: number;
+    name: string;
+    description?: string;
+    reward?: string;
+    favorite?: boolean;
+    publicHabit?: boolean;
 }
 
 export interface ILoginFormValues {

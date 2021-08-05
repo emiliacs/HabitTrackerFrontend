@@ -23,4 +23,21 @@ const handleNewHabit = async (newHabit: IHabit): Promise<IHabit | null> => {
         : null;
 };
 
-export default { handleNewHabit };
+const tryGetHabits = async () => {
+    const token = (await authStorage.getToken()) as string;
+    const response = await axios
+        .get(`${baseUrl}${ApiRoutes.newHabit}`, { headers: { Authorization: `Bearer ${token}` } })
+        .catch((error: AxiosError | Error) => axios.isAxiosError(error) && error.response);
+    return response;
+};
+
+const handleHabits = async (): Promise<IHabit[] | null> => {
+    const newHabitCollection = await tryGetHabits();
+    return newHabitCollection &&
+        newHabitCollection.status === StatusCodes.Code200 &&
+        newHabitCollection.data
+        ? (newHabitCollection.data as IHabit[])
+        : null;
+};
+
+export default { handleNewHabit, handleHabits };
