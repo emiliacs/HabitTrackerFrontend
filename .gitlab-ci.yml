@@ -1,9 +1,22 @@
-default:
-    image: node
+image: node
+
+before_script:
+    - npm install
+
+cache:
+    paths:
+        - node_modules/
+
+stages:
+    - lint
+    - test
+
+lint:
+    stage: lint
+    script:
+        - npm run lint
 
 test:
     stage: test
-    before_script:
-        - npm install
     script:
         - npm run test
