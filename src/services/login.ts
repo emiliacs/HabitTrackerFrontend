@@ -3,7 +3,6 @@ import authStorage from "../utils/authStorage";
 import { IUser } from "../types";
 import { API_URL } from "@env";
 import { LoginMessages, StatusCodes, ApiRoutes } from "../constants";
-
 const baseUrl = API_URL;
 
 interface ICredentials {

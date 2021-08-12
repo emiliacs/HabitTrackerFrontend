@@ -3,7 +3,7 @@ import { ApiRoutes } from "../../src/constants";
 import axios from "axios";
 import { API_URL } from "@env";
 import authStorage from "../../src/utils/authStorage";
-import { IHabit } from "../../src/types";
+import { IHabit, INewHabit } from "../../src/types";
 
 jest.mock("axios");
 jest.mock("../../src/utils/authStorage");
@@ -12,13 +12,16 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 const baseUrl = API_URL;
 const mockedAuthStorage = authStorage as jest.Mocked<typeof authStorage>;
 
-const testNewHabit: IHabit = {
+const testNewHabit: INewHabit = {
     ownerId: 1,
     name: "testuser",
     description: "test habit",
     reward: "test reward",
     favorite: true,
     publicHabit: true,
+    startDate: new Date(),
+    endDate: new Date(),
+    timesTodo: 30,
 };
 const mockNewHabitResponse: IHabit = {
     habitId: 12,
