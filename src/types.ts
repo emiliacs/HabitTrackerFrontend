@@ -12,7 +12,7 @@ export type TAppParamList = {
 
 export interface IUser {
     name: string;
-    userId?: string;
+    userId?: number;
     Verified?: boolean;
     Picture?: string;
     PublicProfile?: boolean;
@@ -35,4 +35,16 @@ export interface ILoginFormValues {
 
 export interface IRegisterFormValues extends ILoginFormValues {
     name: string;
+}
+
+export interface INewHabit {
+    ownerId?: number;
+    name: string;
+    description?: string;
+    reward?: string;
+    favorite?: boolean;
+    publicHabit?: boolean;
+    startDate: Date;
+    endDate: Date;
+    timesTodo: number;
 }

@@ -1,2 +1,2 @@
-GET   http://localhost:36656/api/users/me
+GET   http://192.168.1.53:4000/api/users/me
 Authorization: Bearer xxx

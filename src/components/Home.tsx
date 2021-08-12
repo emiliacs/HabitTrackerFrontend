@@ -1,10 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
-import { Text, View } from "react-native";
-
+import { StyleSheet, Text, View } from "react-native";
 import HabitCollection from "./HabitCollection";
 import { IHabit } from "../types";
 import habit from "../services/habit";
+
+const styles = StyleSheet.create({
+    baseText: {
+        fontFamily: "Cochin",
+    },
+    titleText: {
+        fontSize: 20,
+        fontWeight: "bold",
+    },
+});
 
 const Home: React.FC = () => {
     const { user } = useContext(UserContext);
@@ -18,10 +27,12 @@ const Home: React.FC = () => {
     }, []);
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-            <Text>
-                <h1>Hello, {user?.name}</h1>
-            </Text>
-            {habits ? <HabitCollection habits={habits} /> : <Text>No habits found</Text>}
+            <Text style={styles.titleText}>Hello, {user?.name}</Text>
+            {habits ? (
+                <HabitCollection habits={habits} />
+            ) : (
+                <Text style={styles.baseText}>No habits found</Text>
+            )}
         </View>
     );
 };
