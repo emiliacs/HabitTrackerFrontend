@@ -45,7 +45,7 @@ interface IHabitPropInterface {
     habit: IHabit;
 }
 
-const Habitcomponent: React.FC<IHabitPropInterface> = ({ habit }) => (
+const HabitComponent: React.FC<IHabitPropInterface> = ({ habit }) => (
     <View testID="HabitView" style={styles.HabitStyle}>
         <Text testID="noHabitsTxt" style={styles.HabitName}>
             {habit.name}
@@ -55,4 +55,4 @@ const Habitcomponent: React.FC<IHabitPropInterface> = ({ habit }) => (
     </View>
 );
 
-export default Habitcomponent;
+export default HabitComponent;
