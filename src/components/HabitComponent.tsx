@@ -1,6 +1,8 @@
-import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { Text, View, StyleSheet, Pressable } from "react-native";
 import { IHabit } from "../types";
+import habitHistory from "../services/history";
+import { HabitDoneMessages } from "../constants";
 
 const styles = StyleSheet.create({
     HabitStyle: {
@@ -8,7 +10,7 @@ const styles = StyleSheet.create({
         textAlign: "left",
         margin: 10,
         padding: 5,
-        paddingLeft: 20,
+        paddingLeft: 10,
         paddingRight: 20,
         borderColor: "gray",
         borderWidth: 2,
@@ -39,20 +41,81 @@ const styles = StyleSheet.create({
         fontSize: 14,
         letterSpacing: 0.3,
     },
+
+    ButtonText: {
+        fontSize: 14,
+        lineHeight: 21,
+        fontWeight: "bold",
+        letterSpacing: 0.25,
+        color: "white",
+    },
+    ButtonDescription: {
+        textAlign: "center",
+        fontSize: 12,
+    },
+    Button: {
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 10,
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: "black",
+    },
+    ButtonPressed: {
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 10,
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: "darkgray",
+    },
 });
 
 interface IHabitPropInterface {
     habit: IHabit;
 }
 
-const HabitComponent: React.FC<IHabitPropInterface> = ({ habit }) => (
-    <View testID="HabitView" style={styles.HabitStyle}>
-        <Text testID="noHabitsTxt" style={styles.HabitName}>
-            {habit.name}
-        </Text>
-        <Text style={styles.HabitDescription}>{habit.description}</Text>
-        <Text style={styles.HabitReward}>{habit.reward}</Text>
-    </View>
-);
+const HabitComponent: React.FC<IHabitPropInterface> = ({ habit }) => {
+    const [titleText, setTitleText] = useState("");
+    const [isPressed, setPressed] = useState(false);
+
+    const setHabitAsDone = async () => {
+        const newHabitHistory = {
+            ownerId: habit.ownerId,
+            habitHistoryResult: true,
+        };
+        const result = await habitHistory.handlePostHistory(newHabitHistory);
+
+        const postResult = result
+            ? setTitleText(HabitDoneMessages.Success)
+            : setTitleText(HabitDoneMessages.Fail);
+
+        const buttonText = result ? setPressed(true) : setPressed(false);
+
+        return { postResult, buttonText };
+    };
+
+    return (
+        <View testID="HabitView" style={styles.HabitStyle}>
+            <Text testID="noHabitsTxt" style={styles.HabitName}>
+                {habit.name}
+            </Text>
+            <Text style={styles.HabitDescription}>{habit.description}</Text>
+            <Text style={styles.HabitReward}>{habit.reward}</Text>
+            <Pressable
+                testID="habitDoneButton"
+                style={isPressed ? styles.ButtonPressed : styles.Button}
+                onPress={() => setHabitAsDone()}
+            >
+                <Text style={styles.ButtonText}>Done</Text>
+            </Pressable>
+            <Text style={styles.ButtonDescription}>{titleText}</Text>
+        </View>
+    );
+};
 
 export default HabitComponent;

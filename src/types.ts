@@ -29,6 +29,10 @@ export interface IHabit {
     favorite?: boolean;
     publicHabit?: boolean;
 }
+export interface IHabitHistory {
+    ownerId: number;
+    habitHistoryResult: boolean;
+}
 
 export interface ILoginFormValues {
     email: string;
