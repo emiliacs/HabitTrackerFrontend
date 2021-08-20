@@ -11,6 +11,10 @@ export enum NewHabitMessages {
     Succees = "New habit created",
     Fail = "Unable to create new habit ...Try Again",
 }
+export enum HabitDoneMessages{
+    Success = "Habit is Done",
+    Fail = "Unable to Successfully Mark Habit as Done ...Try Again",
+}
 
 export enum ApiRoutes {
     login = "login",
@@ -18,6 +22,7 @@ export enum ApiRoutes {
     usersMe = "users/me",
     verify = "users/verify",
     newHabit = "habits",
+    newHistory = "habithistory"
 }
 
 export enum VerificationMessages {

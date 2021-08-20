@@ -1,7 +1,8 @@
 import React from "react";
-import { render } from "@testing-library/react-native";
+import { fireEvent, render } from "@testing-library/react-native";
 import Habitcomponent from "../../src/components/HabitComponent";
 import { IHabit } from "../../src/types";
+import historyService from "../..//src/services/history";
 
 beforeEach(() => {
     jest.clearAllMocks();
@@ -20,6 +21,9 @@ const mockHabit: IHabit = {
     publicHabit: false,
 };
 
+const mockedHistoryService = historyService as jest.Mocked<typeof historyService>;
+const mockedSubmit = jest.spyOn(historyService, "handlePostHistory");
+
 describe("HabitComponent Test", () => {
     it("Text elements has habit text", () => {
         const { getByTestId } = render(<Habitcomponent habit={mockHabit} />);
@@ -28,10 +32,22 @@ describe("HabitComponent Test", () => {
         expect(component.children).toContain(mockHabit.name);
     });
 
-    it("View contains 3 child elements", () => {
+    it("View contains 5 child elements", () => {
         const { getByTestId } = render(<Habitcomponent habit={mockHabit} />);
         const viewComponent = getByTestId("HabitView");
         expect(viewComponent).not.toBeNull();
-        expect(viewComponent.children).toHaveLength(3);
+        expect(viewComponent.children).toHaveLength(5);
+    });
+    it("Habit done button calls function handle post history from historyService", () => {
+        const { getByTestId } = render(<Habitcomponent habit={mockHabit} />);
+        const component = getByTestId("habitDoneButton");
+        fireEvent.press(component);
+        expect(mockedHistoryService.handlePostHistory).toHaveBeenCalled();
+        expect(mockedSubmit).toHaveBeenCalledWith(
+            expect.objectContaining({
+               ownerId: 0,
+               habitHistoryResult: true
+            }),
+        );
     });
 });
