@@ -96,7 +96,8 @@ const CreateNewHabit: React.FC<{ setHabits: React.Dispatch<React.SetStateAction<
     const submitLogin = async (values: INewHabit) => {
         const newHabit = await habitService.handleNewHabit({
             ...values,
-            ownerId: user?.userId as number,
+            ownerId: user?.id as number,
+            timesTodo: Number(values.timesTodo),
         });
         const handleNewHabit = () =>
             newHabit && user
@@ -107,6 +108,7 @@ const CreateNewHabit: React.FC<{ setHabits: React.Dispatch<React.SetStateAction<
     };
     return (
         <View style={styles.Container}>
+            <Text>{user?.name}</Text>
             <Formik
                 initialValues={initialValues}
                 validationSchema={SignupSchema}

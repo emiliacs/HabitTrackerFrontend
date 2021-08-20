@@ -1,11 +1,17 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, StackNavigationProp } from "@react-navigation/stack";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { TAuthParamList } from "../types";
 import MailVerification from "./MailVerification";
+import { RouteProp } from "@react-navigation/native";
 
 const Stack = createStackNavigator<TAuthParamList>();
+
+export interface IAuthNavProps<T extends keyof TAuthParamList> {
+    navigation: StackNavigationProp<TAuthParamList, T>;
+    route: RouteProp<TAuthParamList, T>;
+}
 
 const AuthenticationStack = (): JSX.Element => (
     <Stack.Navigator initialRouteName="Login">

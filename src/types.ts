@@ -3,16 +3,18 @@ export type TAuthParamList = {
     Login: undefined;
     Register: undefined;
     mailverification: undefined;
+    Logout: undefined;
 };
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type TAppParamList = {
     Home: undefined;
     mailverification: undefined;
+    newhabit: undefined;
 };
 
 export interface IUser {
     name: string;
-    userId?: number;
+    id?: number;
     Verified?: boolean;
     Picture?: string;
     PublicProfile?: boolean;

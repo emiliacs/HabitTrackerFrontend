@@ -25,4 +25,9 @@ export enum VerificationMessages {
     fail = "Unable to verify",
 }
 
+export enum ButtonTexts {
+    Logout = "Log out",
+    AddNewHabit = "Add habit",
+}
+
 export const LoginWithTokenRedirectTime = 2000;

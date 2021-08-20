@@ -5,23 +5,14 @@ import Habitcomponent from "./HabitComponent";
 
 const styles = StyleSheet.create({
     HabitStyle: {
-        color: "black",
-        flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        alignSelf: "stretch",
         margin: 5,
+        flexWrap: "wrap",
     },
-    Item: {
-        backgroundColor: "gray",
-        color: "white",
-        margin: 10,
+    HabitScroller: {
         padding: 10,
-        paddingLeft: 20,
-        paddingRight: 20,
-        borderColor: "gray",
-        borderWidth: 2,
-        borderRadius: 5,
+        marginBottom: 20,
     },
     Header: {
         backgroundColor: "darkgray",
@@ -32,6 +23,33 @@ const styles = StyleSheet.create({
         fontSize: 25,
         margin: 2,
         padding: 5,
+    },
+    ButtonRect: {
+        textAlign: "center",
+        backgroundColor: "darkgray",
+        width: 200,
+        height: 50,
+        borderRadius: 10,
+        borderColor: "gray",
+        borderWidth: 3,
+        alignItems: "center",
+        justifyContent: "center",
+        margin: 10,
+    },
+    ButtonRound: {
+        textAlign: "center",
+        backgroundColor: "black",
+        width: 50,
+        height: 50,
+        borderRadius: 30,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    ButtonText: {
+        fontSize: 20,
+        fontWeight: "bold",
+        letterSpacing: 0.25,
+        color: "white",
     },
 });
 
@@ -51,7 +69,12 @@ const HabitCollection: React.FC<IHabitPropInterface> = ({ habits }) => {
     return (
         <View testID="CollectionMainView" style={styles.HabitStyle}>
             <Text style={styles.Header}> Habits </Text>
-            {habits ? <ScrollView testID="CollectionScrollView">{habitData}</ScrollView> : null}
+
+            {habits ? (
+                <ScrollView style={styles.HabitScroller} testID="CollectionScrollView">
+                    {habitData}
+                </ScrollView>
+            ) : null}
         </View>
     );
 };
