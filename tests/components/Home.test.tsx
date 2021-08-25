@@ -12,4 +12,12 @@ describe("Test home buttons", () => {
         fireEvent.press(comp);
         expect(navigate).toHaveBeenCalledWith("newhabit");
     });
+    it("Test if profile button renders", async () => {
+        const navigate = jest.fn();
+        const { getByTestId } = render(<Home navigation={{ navigate }} />);
+        const comp = getByTestId("profilebutton");
+        expect(comp).not.toBeNull();
+        fireEvent.press(comp);
+        expect(navigate).toHaveBeenCalledWith("profile");
+    });
 });

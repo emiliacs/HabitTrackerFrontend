@@ -5,16 +5,20 @@ import { TAppParamList } from "../types";
 import MailVerification from "./MailVerification";
 import LogoutButton from "./LogoutButton";
 import CreateNewHabit from "./CreateNewHabit";
+import UserProfile from "./UserProfile";
+import EditProfile from "./EditProfile";
 
 const Stack = createStackNavigator<TAppParamList>();
-const temp = () => <LogoutButton />;
-temp.displayName = "log";
+const logout = () => <LogoutButton />;
+const editProfile = () => <EditProfile />;
+logout.displayName = "log";
+editProfile.displayName = "edit";
 const AppTabs: React.FC = () => (
     <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
             options={{
                 headerTitle: "Home",
-                headerRight: temp,
+                headerRight: logout,
             }}
             name="Home"
             component={Home}
@@ -32,6 +36,14 @@ const AppTabs: React.FC = () => (
             }}
             name="newhabit"
             component={CreateNewHabit}
+        />
+        <Stack.Screen
+            options={{
+                headerTitle: "Profile",
+                headerRight: editProfile,
+            }}
+            name="profile"
+            component={UserProfile}
         />
     </Stack.Navigator>
 );

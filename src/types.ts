@@ -10,11 +10,13 @@ export type TAppParamList = {
     Home: undefined;
     mailverification: undefined;
     newhabit: undefined;
+    profile: undefined;
 };
 
 export interface IUser {
     name: string;
     id?: number;
+    email?: string;
     Verified?: boolean;
     Picture?: string;
     PublicProfile?: boolean;
