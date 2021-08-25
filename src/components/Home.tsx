@@ -62,16 +62,28 @@ const Home: React.FC<IAppNavProps<"Home">> = ({ navigation }) => {
     return (
         <View style={{ flex: 1, alignItems: "center" }}>
             <Text style={styles.titleText}>Hello, {user?.name}</Text>
-            <Pressable
-                testID="addhabitbutton"
-                onPress={() => {
-                    navigation.navigate("newhabit");
-                }}
-            >
-                <View style={styles.ButtonRect}>
-                    <Text style={styles.ButtonText}>{ButtonTexts.AddNewHabit}</Text>
-                </View>
-            </Pressable>
+            <View style={{ flexDirection: "row" }}>
+                <Pressable
+                    testID="addhabitbutton"
+                    onPress={() => {
+                        navigation.navigate("newhabit");
+                    }}
+                >
+                    <View style={styles.ButtonRect}>
+                        <Text style={styles.ButtonText}>{ButtonTexts.AddNewHabit}</Text>
+                    </View>
+                </Pressable>
+                <Pressable
+                    testID="profilebutton"
+                    onPress={() => {
+                        navigation.navigate("profile");
+                    }}
+                >
+                    <View style={styles.ButtonRect}>
+                        <Text style={styles.ButtonText}>Profile</Text>
+                    </View>
+                </Pressable>
+            </View>
 
             {habits ? (
                 <HabitCollection habits={habits} />
