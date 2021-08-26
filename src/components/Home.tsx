@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useContext } from "react";
+=======
+import React, { useContext, useEffect } from "react";
+>>>>>>> a9cd52e (refactor code and add automatic habit list updating)
 import { UserContext } from "./UserContext";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import HabitCollection from "./HabitCollection";
@@ -11,7 +15,11 @@ export interface IAppNavProps<T extends keyof TAppParamList> {
     navigation: StackNavigationProp<TAppParamList, T>;
     route: RouteProp<TAppParamList, T>;
     habits: IHabit[];
+<<<<<<< HEAD
     setHabits: React.Dispatch<React.SetStateAction<IHabit[]>>;
+=======
+    setHabits: React.Dispatch<React.SetStateAction<IHabit[]>>; 
+>>>>>>> a9cd52e (refactor code and add automatic habit list updating)
 }
 
 const styles = StyleSheet.create({
@@ -51,8 +59,20 @@ const styles = StyleSheet.create({
     },
 });
 
+<<<<<<< HEAD
 const Home: React.FC<IAppNavProps<"Home">> = ({ navigation, habits }) => {
     const { user } = useContext(UserContext);
+=======
+const Home: React.FC<IAppNavProps<"Home">> = ({ navigation , habits, setHabits }) => {
+    const { user } = useContext(UserContext);
+    useEffect(() => {
+        async function fetchData() {
+            const newHabits = await habit.handleHabits();
+            if (newHabits) setHabits(newHabits);
+        }
+        void fetchData();
+    }, []);
+>>>>>>> a9cd52e (refactor code and add automatic habit list updating)
     return (
         <View style={{ flex: 1, alignItems: "center" }}>
             <Text style={styles.titleText}>Hello, {user?.name}</Text>

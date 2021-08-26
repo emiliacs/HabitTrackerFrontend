@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> a9cd52e (refactor code and add automatic habit list updating)
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./Home";
 import { IHabit, TAppParamList } from "../types";
@@ -7,7 +11,10 @@ import LogoutButton from "./LogoutButton";
 import CreateNewHabit from "./CreateNewHabit";
 import UserProfile from "./UserProfile";
 import EditProfileButton from "./EditProfileButton";
+<<<<<<< HEAD
 import habit from "../services/habit";
+=======
+>>>>>>> a9cd52e (refactor code and add automatic habit list updating)
 
 const Stack = createStackNavigator<TAppParamList>();
 const logoutButton = () => <LogoutButton />;
@@ -16,6 +23,7 @@ logoutButton.displayName = "log";
 editProfileButton.displayName = "edit";
 const AppTabs: React.FC = () => {
     const [habits, setHabits] = useState([] as IHabit[]);
+<<<<<<< HEAD
     useEffect(() => {
         async function fetchData() {
             const newHabits = await habit.handleHabits();
@@ -23,6 +31,8 @@ const AppTabs: React.FC = () => {
         }
         void fetchData();
     }, []);
+=======
+>>>>>>> a9cd52e (refactor code and add automatic habit list updating)
     return (
         <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
