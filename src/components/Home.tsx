@@ -1,15 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "./UserContext";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import HabitCollection from "./HabitCollection";
 import { IHabit, TAppParamList } from "../types";
-import habit from "../services/habit";
+
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { ButtonTexts } from "../constants";
 export interface IAppNavProps<T extends keyof TAppParamList> {
     navigation: StackNavigationProp<TAppParamList, T>;
     route: RouteProp<TAppParamList, T>;
+    habits: IHabit[];
+    setHabits: React.Dispatch<React.SetStateAction<IHabit[]>>;
 }
 
 const styles = StyleSheet.create({
@@ -49,16 +51,8 @@ const styles = StyleSheet.create({
     },
 });
 
-const Home: React.FC<IAppNavProps<"Home">> = ({ navigation }) => {
+const Home: React.FC<IAppNavProps<"Home">> = ({ navigation, habits }) => {
     const { user } = useContext(UserContext);
-    const [habits, setHabits] = useState([] as IHabit[]);
-    useEffect(() => {
-        async function fetchData() {
-            const newHabits = await habit.handleHabits();
-            if (newHabits) setHabits(newHabits);
-        }
-        void fetchData();
-    }, []);
     return (
         <View style={{ flex: 1, alignItems: "center" }}>
             <Text style={styles.titleText}>Hello, {user?.name}</Text>

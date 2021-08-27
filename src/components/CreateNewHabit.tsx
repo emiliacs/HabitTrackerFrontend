@@ -2,11 +2,13 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import React, { useContext, useState } from "react";
 import { Pressable, StyleSheet, Text, View, CheckBox, TextInput } from "react-native";
-import { IHabit, INewHabit } from "../types";
+import { IHabit, INewHabit, TAppParamList } from "../types";
 import { UserContext } from "./UserContext";
 import habitService from "../services/habit";
 import { NewHabitMessages } from "../constants";
 import DatePicker from "./DatePicker";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RouteProp } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     Container: {
@@ -73,9 +75,14 @@ const SignupSchema = Yup.object().shape({
     timesTodo: Yup.number().typeError("Times To Do must be number").required("Required"),
 });
 
-const CreateNewHabit: React.FC<{ setHabits: React.Dispatch<React.SetStateAction<IHabit[]>> }> = ({
-    setHabits,
-}) => {
+export interface IAppNavProps<T extends keyof TAppParamList> {
+    navigation: StackNavigationProp<TAppParamList, T>;
+    route: RouteProp<TAppParamList, T>;
+    habits?: IHabit[];
+    setHabits?: React.Dispatch<React.SetStateAction<IHabit[]>>;
+}
+
+const CreateNewHabit: React.FC<IAppNavProps<"newhabit">> = ({ setHabits }) => {
     const endDateInitial = new Date();
     endDateInitial.setDate(endDateInitial.getDate() + 30);
     const initialValues: INewHabit = {
@@ -102,7 +109,7 @@ const CreateNewHabit: React.FC<{ setHabits: React.Dispatch<React.SetStateAction<
         const handleNewHabit = () =>
             newHabit && user
                 ? (setCreateNewHabitMessage(NewHabitMessages.Succees),
-                  setHabits((oldHabits) => oldHabits && [...oldHabits, newHabit]))
+                  setHabits && setHabits((oldHabits) => oldHabits && [...oldHabits, newHabit]))
                 : setCreateNewHabitMessage(NewHabitMessages.Fail);
         handleNewHabit();
     };

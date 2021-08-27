@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const EditProfile: React.FC = () => {
+const EditProfileButton: React.FC = () => {
     const buttonText = "Edit";
 
     return (
@@ -34,4 +34,4 @@ const EditProfile: React.FC = () => {
     );
 };
 
-export default EditProfile; // todo functionality
+export default EditProfileButton; // todo functionality

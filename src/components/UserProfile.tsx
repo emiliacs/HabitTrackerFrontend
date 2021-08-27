@@ -1,5 +1,8 @@
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { IHabit, TAppParamList } from "../types";
 import { UserContext } from "./UserContext";
 
 const styles = StyleSheet.create({
@@ -24,8 +27,14 @@ const styles = StyleSheet.create({
         paddingBottom: 2,
     },
 });
+export interface IAppNavProps<T extends keyof TAppParamList> {
+    navigation: StackNavigationProp<TAppParamList, T>;
+    route: RouteProp<TAppParamList, T>;
+    habits?: IHabit[];
+    setHabits?: React.Dispatch<React.SetStateAction<IHabit[]>>; 
+}
 
-const UserProfile: React.FC = () => {
+const UserProfile: React.FC<IAppNavProps<"profile">> = () => {
     const { user } = useContext(UserContext);
 
     return (

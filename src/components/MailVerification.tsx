@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, Pressable } from "react-native";
-import { StackScreenProps } from "@react-navigation/stack";
+import { StackNavigationProp } from "@react-navigation/stack";
 import MailService from "../services/mail";
+import { IHabit, TAppParamList } from "../types";
+import { RouteProp } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     TextStyle: {
@@ -23,19 +25,20 @@ const styles = StyleSheet.create({
         color: "white",
     },
 });
+interface IVerificationData {
+    verificationCode: string;
+}
+export interface IAppNavProps<T extends keyof TAppParamList> {
+    navigation: StackNavigationProp<TAppParamList, T>;
+    route: RouteProp<TAppParamList, T>;
+    habits?: IHabit[];
+    setHabits?: React.Dispatch<React.SetStateAction<IHabit[]>>; 
+}
 
-interface IMailVerification
-    extends StackScreenProps<
-        {
-            MailVerification: { verificationCode: string };
-        },
-        "MailVerification"
-    > {}
-
-const MailVerification: React.FC<IMailVerification> = ({ route }) => {
+const MailVerification:  React.FC<IAppNavProps<"mailverification">> = ({ route }) => {
     const [verifMessage, setVerifMessage] = useState("");
     const handleSubmit = async () => {
-        const verfiRespone = await MailService.handleVerification(route.params);
+        const verfiRespone = await MailService.handleVerification(route.params as unknown as IVerificationData);
         setVerifMessage(verfiRespone);
     };
     return (
