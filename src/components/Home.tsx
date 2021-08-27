@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const Home: React.FC<IAppNavProps<"Home">> = ({ navigation, habits }) => {
     const { user } = useContext(UserContext);
 =======
@@ -84,6 +85,9 @@ const Home: React.FC<IAppNavProps<"Home">> = ({ navigation , habits, setHabits }
 >>>>>>> a9cd52e (refactor code and add automatic habit list updating)
 =======
 const Home: React.FC<IAppNavProps<"Home">> = ({ navigation, habits }) => {
+=======
+const Home: React.FC<IAppNavProps<"Home">> = ({ navigation, habits, setHabits }) => {
+>>>>>>> ba4b087 (add habit hisotory to habit component)
     const { user } = useContext(UserContext);
 >>>>>>> 8aacd69 (edit appstack)
     return (
@@ -113,7 +117,7 @@ const Home: React.FC<IAppNavProps<"Home">> = ({ navigation, habits }) => {
             </View>
 
             {habits ? (
-                <HabitCollection habits={habits} />
+                <HabitCollection habits={habits} setHabits={setHabits}/>
             ) : (
                 <Text style={styles.baseText}>No habits found</Text>
             )}

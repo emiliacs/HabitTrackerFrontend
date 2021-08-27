@@ -14,8 +14,9 @@ const mockNewHabit = {
 };
 describe("Create New Habit", () => {
     it("calls habitService after pressing the submit button", async () => {
+        const navigate = jest.fn();
         const mockedSubmit = jest.spyOn(habitService, "handleNewHabit");
-        const { getByTestId } = render(<CreateNewHabit setHabits={jest.fn()} />);
+        const { getByTestId } = render(<CreateNewHabit navigation={{ navigate }} />);
 
         fireEvent.changeText(getByTestId("HabitNameField"), mockNewHabit.name);
         fireEvent.changeText(getByTestId("HabitDescriptionField"), mockNewHabit.description);

@@ -1,7 +1,7 @@
 import { API_URL } from "@env";
 import axios, { AxiosError } from "axios";
 import { ApiRoutes, StatusCodes } from "../constants";
-import { IHabit, IHabitHistory } from "../types";
+import { IHabitHistory } from "../types";
 import authStorage from "../utils/authStorage";
 
 const baseUrl = API_URL;
@@ -16,10 +16,10 @@ const tryPostHistory = async (newHabit: IHabitHistory) => {
     return response;
 };
 
-const handlePostHistory = async (newHabit: IHabitHistory): Promise<IHabit | null> => {
+const handlePostHistory = async (newHabit: IHabitHistory): Promise<IHabitHistory | null> => {
     const newHabitResult = await tryPostHistory(newHabit);
     return newHabitResult && newHabitResult.status === StatusCodes.Code201 && newHabitResult.data
-        ? (newHabitResult.data as IHabit)
+        ? (newHabitResult.data as IHabitHistory)
         : null;
 };
 

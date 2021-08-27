@@ -16,9 +16,10 @@ const mockInitialState = {
 
 describe("Test user profile ", () => {
     it("Test that user profile returns user", async () => {
+        const navigate = jest.fn();
         const screen = render(
             <UserContext.Provider value={mockInitialState}>
-                <UserProfile />
+                <UserProfile navigation={{ navigate }} />
             </UserContext.Provider>,
         );
         screen.getByText("testi");

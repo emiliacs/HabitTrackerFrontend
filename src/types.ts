@@ -23,17 +23,22 @@ export interface IUser {
 }
 
 export interface IHabit {
-    habitId?: number;
+    id?: number;
     ownerId: number;
     name: string;
     description?: string;
     reward?: string;
     favorite?: boolean;
     publicHabit?: boolean;
+    history: IHabitHistory[];
 }
 export interface IHabitHistory {
-    ownerId: number;
-    habitHistoryResult: boolean;
+    habitHistoryDate?: Date;
+    habitHistoryNum?: number;
+    habitHistoryResult?: boolean;    
+    habitId: number;
+    id?: number;
+    ownerId?: number;
 }
 
 export interface ILoginFormValues {

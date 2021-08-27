@@ -55,13 +55,14 @@ const styles = StyleSheet.create({
 
 interface IHabitPropInterface {
     habits: IHabit[];
+    setHabits: React.Dispatch<React.SetStateAction<IHabit[]>>;
 }
 
-const HabitCollection: React.FC<IHabitPropInterface> = ({ habits }) => {
+const HabitCollection: React.FC<IHabitPropInterface> = ({ habits, setHabits }) => {
     const habitData = habits
         ? habits.map((habit: IHabit) => (
-              <View key={habit.habitId}>
-                  <Habitcomponent habit={habit} />
+              <View key={habit.id}>
+                  <Habitcomponent habit={habit}  setHabits={setHabits}/>
               </View>
           ))
         : null;

@@ -77,26 +77,32 @@ const styles = StyleSheet.create({
 
 interface IHabitPropInterface {
     habit: IHabit;
+    setHabits: React.Dispatch<React.SetStateAction<IHabit[]>>;
 }
 
-const HabitComponent: React.FC<IHabitPropInterface> = ({ habit }) => {
+const HabitComponent: React.FC<IHabitPropInterface> = ({ habit, setHabits }) => {
     const [titleText, setTitleText] = useState("");
     const [isPressed, setPressed] = useState(false);
 
     const setHabitAsDone = async () => {
         const newHabitHistory = {
+            habitId: habit.id as number,
             ownerId: habit.ownerId,
             habitHistoryResult: true,
         };
         const result = await habitHistory.handlePostHistory(newHabitHistory);
+        const handleResult = () =>
+            result && habit
+                ? (setTitleText(HabitDoneMessages.Success),
+                  setPressed(true),
+                  setHabits((oldHabits) =>
+                      oldHabits.map((h) =>
+                          h.id === habit.id ? { ...habit, history: [...habit.history, result] } : h,
+                      ),
+                  ))
+                : (setTitleText(HabitDoneMessages.Fail), setPressed(false));
 
-        const postResult = result
-            ? setTitleText(HabitDoneMessages.Success)
-            : setTitleText(HabitDoneMessages.Fail);
-
-        const buttonText = result ? setPressed(true) : setPressed(false);
-
-        return { postResult, buttonText };
+        handleResult();
     };
 
     return (

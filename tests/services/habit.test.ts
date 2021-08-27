@@ -24,13 +24,14 @@ const testNewHabit: INewHabit = {
     timesTodo: 30,
 };
 const mockNewHabitResponse: IHabit = {
-    habitId: 12,
+    id: 12,
     ownerId: 1,
     name: "testuser",
     description: "test habit",
     reward: "test reward",
     favorite: true,
     publicHabit: true,
+    history: []
 };
 const testToken = "testToken123";
 

@@ -11,46 +11,49 @@ afterEach(() => {
 });
 
 const mockHabit1: IHabit = {
-    habitId: 1,
+    id: 1,
     ownerId: 0,
     name: "Nimi",
     description: "Jotain  mitä tehdä",
     reward: "Palkinto",
     favorite: false,
     publicHabit: false,
+    history: [],
 };
 
 const mockHabit2: IHabit = {
-    habitId: 2,
+    id: 2,
     ownerId: 0,
     name: "MockHabit",
     description: "Mokki",
     reward: "MockReaward",
     favorite: false,
     publicHabit: false,
+    history: [],
 };
 const mockHabit3: IHabit = {
-    habitId: 4,
+    id: 4,
     ownerId: 0,
     name: "Mocbit",
     description: "Mokdfsaki",
     reward: "MockReasdfaasward",
     favorite: false,
     publicHabit: false,
+    history: [],
 };
 
 const mockHabitCollection: IHabit[] = [mockHabit1, mockHabit2, mockHabit3];
 
 describe("HabitCollection Test", () => {
     it("ScrollerView is not null ", () => {
-        const { getByTestId } = render(<HabitCollection habits={mockHabitCollection} />);
+        const { getByTestId } = render(<HabitCollection habits={mockHabitCollection}  setHabits={jest.fn}/>);
         const component = getByTestId("CollectionScrollView");
 
         expect(component).not.toBeNull();
     });
 
     it("Two child elements when HabitCollection has habits props array", () => {
-        const { getByTestId } = render(<HabitCollection habits={mockHabitCollection} />);
+        const { getByTestId } = render(<HabitCollection habits={mockHabitCollection} setHabits={jest.fn} />);
         const component = getByTestId("CollectionMainView");
 
         expect(component).not.toBeNull();
